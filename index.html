@@ -40,14 +40,18 @@
     <button class="bar__show">Show Bar</button>
     <script src="testBar.js" charset="utf-8"></script>
     <script>
+        const myCall = () => {
+            console.log("custom listener");
+        };
         const myBar = new testBar({
-            position: "top",
-            message: "Add beautiful widgets to your website"
+            position: "bottom",
+            message: "Add beautiful widgets to your website",
+            call: myCall
         });
 
         const btnShow = document.querySelector(".bar__show");
         btnShow.addEventListener("click", () => {
-            console.log(myBar);
+            myBar.init();
         });
     </script>
 </body>
