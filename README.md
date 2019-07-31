@@ -33,10 +33,8 @@ const myCall = () => {
 ### init() 
 ```
 //after creating, use init() method for each testBars object to display them
-.init();
+myBar.init();
 
-//Just run() your circles whenever you want. :)
-myBar.run();
-```
+
 
 
