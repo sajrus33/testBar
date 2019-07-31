@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+        }
+
+        /* default button, bar__show styles */
+        .bar__show {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+
+            background-color: #fff;
+            border: 5px solid rgba(128, 128, 128, 1);
+            border-radius: 50%;
+
+        }
+    </style>
+</head>
+
+<body>
+    <button class="bar__show">Show Bar</button>
+    <script src="testBar.js" charset="utf-8"></script>
+    <script>
+        const myBar = new testBar({
+            position: "bottom",
+            message: "Add beautiful widgets to your website"
+        });
+
+        const btnShow = document.querySelector(".bar__show");
+        btnShow.addEventListener("click", () => {
+            console.log(myBar);
+        });
+    </script>
+</body>
+
+</html>
