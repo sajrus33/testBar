@@ -23,7 +23,8 @@ class testBar {
                     width: "100%",
                     backgroundColor: "rgba(54,61,77,1)",
                     padding: "10px",
-                    fontFamily: "Arial"
+                    fontFamily: "Arial",
+                    transform: "none"
                 }
                 , txt: ""
                 , type: "div"
@@ -95,15 +96,20 @@ class testBar {
 
                 this.toggleSlide = () => {
                     const scrollUp = window.scrollY < this.oldScroll
-                    console.log()
+                    // console.log("up", this.slidedUp, "down", this.slidedDown);
+
                     if (this.slidedDown && scrollUp) {
                         this.slidedUp = true;
                         this.slidedDown = false;
                         this.slide();
-                    } else if (this.slidedUp && !scrollUp) {
-                        this.slidedDown = true;
+                        console.log("up");
+                    }
+                    if (this.slidedUp && !scrollUp) {
                         this.slidedUp = false;
+                        this.slidedDown = true;
                         this.slide(false);
+                        console.log("down");
+
                     }
                     this.oldScroll = window.scrollY;
                 };
@@ -111,14 +117,23 @@ class testBar {
                 this.remove = () => {
                     this.self.remove();
                     this.initialized = false;
+                    this.slidedUp = true;
+                    this.slidedDown = false;
+                    this.oldScroll = window.scrollY;
+                    this.btnRemove.removeEventListener("click", this.remove);
+                    this.btn.removeEventListener("click", this.call);
+                    window.removeEventListener("touchend", this.toggleSlide, false);
+                    window.removeEventListener("scroll", this.toggleSlide);
                 }
 
                 this.btnRemove.addEventListener("click", this.remove);
                 this.btn.addEventListener("click", this.call);
-                window.addEventListener("touchmove", this.toggleSlide, false);
+                window.addEventListener("touchend", this.toggleSlide, false);
                 window.addEventListener("scroll", this.toggleSlide, false);
 
+                console.log(this.slidedDown, "downed", this.slidedUp, "upped");
             }
+
         };
     }
 }
