@@ -4,11 +4,16 @@ class testBar {
         this.position = options.position || "top";
         this.message = options.message || "default message";
         this.call = options.call || (() => { alert("get widgets!") });
+        this.oldScroll = window.scrollY;
+        this.initialized = false;
+        this.slidedUp = true;
+        this.slidedDown = false;
+
 
         const params = {
             self: {
                 style: {
-                    position: "absolute",
+                    position: "fixed",
                     top: (this.position === "top") ? "0%" : "",
                     bottom: (this.position === "bottom") ? "0%" : "",
 
@@ -58,6 +63,7 @@ class testBar {
                 , type: "button"
             }
         };
+
         const setStyles = (styles, element) => {
             Object.assign(element.style, styles);
         };
@@ -70,19 +76,37 @@ class testBar {
                     this[param] = document.createElement(params[param].type);
                     if (param !== "self") {
                         this.self.appendChild(this[param]);
-                    } else if (param === "self") {
-                        this.parent.appendChild(this.self);
-                    }
+                    } else this.parent.appendChild(this.self);
+
                     this[param].innerText = params[param].txt;
                     setStyles(params[param].style, this[param]);
                 });
 
-                this.self.animate([
-                    { transform: `translateY(calc(${this.position === "top" ? "100vh - 60px" : "-100vh + 60px"}))` },
-                    { transform: "translateY(0)" },
-                ],
-                    { duration: 600, easing: "ease-in-out" }
-                )
+                this.slide = (up = true) => {
+
+                    this.self.animate([
+                        { transform: up ? `translateY(calc(${this.position === "top" ? "-100%" : "100%"}))` : "translateY(0)" },
+                        { transform: up ? "translateY(0)" : `translateY(calc(${this.position === "top" ? "-100%" : "100%"}))` }
+                    ],
+                        { duration: 600, easing: "ease-in-out", fill: "forwards" }
+                    );
+                };
+                this.slide();
+
+                this.toggleSlide = () => {
+                    const scrollUp = window.scrollY < this.oldScroll
+                    console.log()
+                    if (this.slidedDown && scrollUp) {
+                        this.slidedUp = true;
+                        this.slidedDown = false;
+                        this.slide();
+                    } else if (this.slidedUp && !scrollUp) {
+                        this.slidedDown = true;
+                        this.slidedUp = false;
+                        this.slide(false);
+                    }
+                    this.oldScroll = window.scrollY;
+                };
 
                 this.remove = () => {
                     this.self.remove();
@@ -91,12 +115,10 @@ class testBar {
 
                 this.btnRemove.addEventListener("click", this.remove);
                 this.btn.addEventListener("click", this.call);
+                window.addEventListener("touchmove", this.toggleSlide, false);
+                window.addEventListener("scroll", this.toggleSlide, false);
+
             }
         };
-
-
-
-
-
     }
 }

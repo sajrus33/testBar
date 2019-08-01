@@ -14,6 +14,10 @@
             box-sizing: border-box;
         }
 
+        body {
+            height: 150vh;
+        }
+
         button {
             border: none;
             cursor: pointer;
@@ -31,20 +35,26 @@
             background-color: #fff;
             border: 5px solid rgba(128, 128, 128, 1);
             border-radius: 50%;
+            outline: none;
 
+        }
+
+        .bar__show:focus {
+            box-shadow: 0 0 3pt 2pt grey;
         }
     </style>
 </head>
 
 <body>
     <button class="bar__show">Show Bar</button>
+
     <script src="testBar.js" charset="utf-8"></script>
     <script>
         const myCall = () => {
             console.log("custom listener");
         };
         const myBar = new testBar({
-            position: "bottom",
+            position: "top",
             message: "Add beautiful widgets to your website",
             call: myCall
         });
