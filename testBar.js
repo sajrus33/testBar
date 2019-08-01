@@ -102,14 +102,11 @@ class testBar {
                         this.slidedUp = true;
                         this.slidedDown = false;
                         this.slide();
-                        console.log("up");
                     }
                     if (this.slidedUp && !scrollUp) {
                         this.slidedUp = false;
                         this.slidedDown = true;
                         this.slide(false);
-                        console.log("down");
-
                     }
                     this.oldScroll = window.scrollY;
                 };
@@ -120,8 +117,6 @@ class testBar {
                     this.slidedUp = true;
                     this.slidedDown = false;
                     this.oldScroll = window.scrollY;
-                    this.btnRemove.removeEventListener("click", this.remove);
-                    this.btn.removeEventListener("click", this.call);
                     window.removeEventListener("touchend", this.toggleSlide, false);
                     window.removeEventListener("scroll", this.toggleSlide);
                 }
@@ -130,10 +125,8 @@ class testBar {
                 this.btn.addEventListener("click", this.call);
                 window.addEventListener("touchend", this.toggleSlide, false);
                 window.addEventListener("scroll", this.toggleSlide, false);
-
-                console.log(this.slidedDown, "downed", this.slidedUp, "upped");
-            }
-
-        };
+                }
+        
+            };
     }
 }
