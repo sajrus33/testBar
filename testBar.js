@@ -89,7 +89,7 @@ class testBar {
                         { transform: up ? `translateY(calc(${this.position === "top" ? "-100%" : "100%"}))` : "translateY(0)" },
                         { transform: up ? "translateY(0)" : `translateY(calc(${this.position === "top" ? "-100%" : "100%"}))` }
                     ],
-                        { duration: 600, easing: "ease-in-out", fill: "forwards" }
+                        { duration: 200, easing: "ease-out", fill: "forwards" }
                     );
                 };
                 this.slide();
@@ -119,7 +119,9 @@ class testBar {
                     this.oldScroll = window.scrollY;
                     window.removeEventListener("touchend", this.toggleSlide, false);
                     window.removeEventListener("scroll", this.toggleSlide);
+
                 }
+                
 
                 this.btnRemove.addEventListener("click", this.remove);
                 this.btn.addEventListener("click", this.call);
